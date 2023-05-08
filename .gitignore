@@ -158,3 +158,29 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+
+
+algorithm_classification_ela_results/              
+algorithm_classification_visualizations/  
+ELA/                                        
+feature_visualizations/    
+performance_prediction_visualizations_different_iterations/  
+problem_classification_results_x_y_normalize_False/
+algorithm_classification_ela_visualizations/       
+algorithm_run_data/                       
+ela_problem_classification_visualizations/  
+iteration_ela/             
+problem_classification_ela_results/                          
+problem_classification_results_x_y_normalize_True/
+algorithm_classification_results_normalize_False/  
+algorithm_run_data_normalized/            
+ela_trajectory/                             
+iteration_ela_normalized/  
+problem_classification_results_normalize_False/              
+problem_classification_visualizations/
+algorithm_classification_results_normalize_True/   
+cmaes_notebooks/                          
+Environments/                               
+old_results/               
+problem_classification_results_normalize_True/               
+__pycache__/
