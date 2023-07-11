@@ -8,9 +8,7 @@ do
         do
             for algorithm in "PSO" "ES" "DE"
             do
-                #tsp -L ELA python run_ela_for_problem.py $algorithm $dimension $seed $problem_id
-                
-                #tsp -L ELA Rscript ela_iteration_2.R $algorithm $seed $dimension $problem_id
+                tsp -L ELA Rscript ela_iteration_2.R $algorithm $seed $dimension $problem_id
                 tsp -L ELA Rscript ela_iteration_2_normalized.R $algorithm $seed $dimension $problem_id
             done
         done

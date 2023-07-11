@@ -6,8 +6,11 @@ do
 
     for dimension in 5
     do
-        tsp -L ALG python algorithm_classification_ela.py DE-PSO-ES true false $end_iteration $dimension
-        tsp -L ALG python algorithm_classification_ela.py DE-PSO-ES true true $end_iteration $dimension
+        #tsp -L ALG python algorithm_classification_ela.py DE-PSO-ES true false 0-$end_iteration $dimension true
+        tsp -L ALG python algorithm_classification_ela.py DE-PSO-ES true true 0-$end_iteration $dimension true
+        tsp -L ALG python algorithm_classification_ela.py DE-PSO-ES true true 0-$end_iteration $dimension false
+        tsp -L ALG python algorithm_classification_ela.py DE-PSO-ES true false 0-$end_iteration $dimension true
+        tsp -L ALG python algorithm_classification_ela.py DE-PSO-ES true false 0-$end_iteration $dimension false
     done
 
 done
