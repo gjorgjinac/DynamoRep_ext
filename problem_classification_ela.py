@@ -34,17 +34,20 @@ else:
 algorithm=algorithm_names[0]
 train_on_seed= True if arguments[2].lower()=='true' else False
 difference= True if arguments[3].lower()=='true' else False
-end_iteration=int(arguments[4])
+start_iteration, end_iteration = get_argument_elements_from_list(arguments[4],True)
 dimension=int(arguments[5])
-result_dir='problem_classification_ela_results'
+normalize_y=True if arguments[6].lower()=='true' else False
+result_dir=f'problem_classification_ela_results_normalize_{normalize_y}'
 seeds=[200,400,600,800,1000]
 id_columns=['problem_id','instance_id','algorithm','dim','seed']
 instance_min, instance_max=0,999
 os.makedirs(result_dir, exist_ok=True)
 
 iteration_min,iteration_max=0,end_iteration
-
-feature_df=pd.read_csv(f'iteration_ela/{algorithm}_dim_{dimension}_all_runs.csv',index_col=[0,1,2,3,4], header=[0,1,2])
+if normalize_y:
+    feature_df=pd.read_csv(f'iteration_ela_normalized/{algorithm}_dim_{dimension}_all_runs_end_iteration_{end_iteration}.csv',index_col=[0,1,2,3,4], header=[0,1,2])
+else:
+    feature_df=pd.read_csv(f'iteration_ela/{algorithm}_dim_{dimension}_all_runs.csv',index_col=[0,1,2,3,4], header=[0,1,2])
 print('Original feature df', feature_df.shape)
 
 

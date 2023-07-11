@@ -7,7 +7,15 @@ This repository contains the code for analyzing the performance of the features 
     - using a single descriptive statistic or using all descriptive statistics for calculating the DynamoRep features
     - using only the decision variables (x-values) or only the objective function values (y-values) or both
 
+### Setup
+The following repository requires the R language for ELA feature calculation, and the python language for the rest of the logic.
+In our experiments, R version 4.2.2 and python version 3.9.7 were used.
 
+For the ELA feature calculation, the "flacco" package should be installed in R. This can be done using the command:
+`R -e 'install.packages("flacco", dependencies = TRUE, repos = "http://cran.us.r-project.org", Ncpus = -1)'`
+
+The libraries used in the python scripts are listed in the requirements.txt file and can be installed with the command:
+`pip install -r requirements.txt`
 
 ### Data collection
 - The scripts algorithms.py can be used to run the DE, ES and PSO algorithms on the BBOB problems to collect the trajectory data needed for the classification tasks. 

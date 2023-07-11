@@ -33,19 +33,24 @@ else:
     algorithm_names = get_argument_elements_from_list(arguments[1], False)
 train_on_seed= True if arguments[2].lower()=='true' else False
 difference= True if arguments[3].lower()=='true' else False
-end_iteration=int(arguments[4])
+iteration_min,iteration_max= get_argument_elements_from_list(arguments[4],True)
 dimension=int(arguments[5])
-result_dir='algorithm_classification_ela_results'
+normalize_y=True if arguments[6].lower()=='true' else False
+
+result_dir=f'algorithm_classification_ela_results_normalize_{normalize_y}'
 seeds=[200,400,600,800,1000]
 id_columns=['problem_id','instance_id','algorithm','dim','seed']
 instance_min, instance_max=0,100
 os.makedirs(result_dir, exist_ok=True)
 
-iteration_min,iteration_max=0,end_iteration
 
 feature_df=pd.DataFrame()
 for algorithm in algorithm_names:
-    feature_df=pd.concat([feature_df, pd.read_csv(f'iteration_ela/{algorithm}_dim_{dimension}_all_runs.csv',index_col=[0,1,2,3,4], header=[0,1,2])])
+    
+    if normalize_y:
+        feature_df=pd.concat([feature_df, pd.read_csv(f'iteration_ela_normalized/{algorithm}_dim_{dimension}_all_runs_end_iteration_{end_iteration}.csv',index_col=[0,1,2,3,4], header=[0,1,2])])
+    else:
+        feature_df=pd.concat([feature_df, pd.read_csv(f'iteration_ela/{algorithm}_dim_{dimension}_all_runs.csv',index_col=[0,1,2,3,4], header=[0,1,2])])
 
 print(feature_df)
 print('Original feature df', feature_df.shape)
@@ -53,9 +58,16 @@ print('Original feature df', feature_df.shape)
 iteration_columns=list(filter(lambda x: x[1] in [str(e) for e in range(0,end_iteration+1)], feature_df.columns))
 feature_df=feature_df[iteration_columns]
 
+
+if difference:
+    feature_df=difference_features(feature_df,iteration_max)
+    feature_names=list(filter(lambda x: x!='y', feature_df.columns))
+else:
+    feature_names=[f'{j} it_{it} ' + (f'x_{i}' if i < dimension else 'y') for it in range(iteration_min, iteration_max+1)  for j in ['mean','min','max','std'] for i in range(0,dimension+1) ]  
+
 print('Feature df from algorithm and iteration', feature_df.shape)
 
-feature_df['y']=list(feature_df.reset_index()['algorithm'].values)
+feature_df[('y','','')]=list(feature_df.reset_index()['algorithm'].values)
 #feature_df=feature_df.set_index(id_columns)
 
 
@@ -85,9 +97,9 @@ for train_seed in seeds:
 
         run_name=f'{global_name}_fold_{fold}'
         report_location=f'{result_dir}/{run_name}_report.csv'
-        if os.path.isfile(report_location):
+        '''if os.path.isfile(report_location):
             print(f'Report already exists: {report_location}. Skipping run')
-            continue
+            continue'''
         train,test=get_split_data_for_algorithm_classification_generalization_testing(problem_ids, train_index, test_index, feature_df, result_dir, run_name, train_seed, train_on_seed)
         print('Before preprocessing', train.shape)
         train,test=preprocess_ela(train,test,id_columns)
