@@ -14,6 +14,9 @@ argument_algorithm_names = arguments[1]
 algorithm_names = get_argument_elements_from_list(arguments[1], False)
 train_on_seed= True if arguments[2].lower()=='true' else False
 difference= True if arguments[3].lower()=='true' else False
+dimension=int(arguments[5])
+normalize_y=True if arguments[6].lower()=='true' else False
+
 
 iteration_min, iteration_max = get_argument_elements_from_list(arguments[4],True)
 seeds = [200,400,600,800,1000]
@@ -23,8 +26,7 @@ seeds = [200,400,600,800,1000]
 
 
 instance_min,instance_max=0,100
-dimension=int(arguments[5])
-normalize_y=True if arguments[6].lower()=='true' else False
+
 result_dir=f'problem_classification_results_normalize_{normalize_y}'
 os.makedirs(result_dir, exist_ok=True)
 

@@ -232,15 +232,23 @@ def difference_features(feature_df,max_iteration):
     columns_values=[]
     columns_names=[]
     for c_index, c in enumerate(feature_df.columns):
-        if len(c.split('_'))>2:
+        if type(c) is str and len(c.split('_'))>2:
             iteration=int(c.split('_')[2])
             if iteration<=max_iteration-1:
                 c_next=c.replace(f'_it_{iteration}_',f'_it_{iteration+1}_')
                 columns_names+=[(f'{c_next} - {c}')]
                 columns_values+=[(feature_df[c_next]- feature_df[c])]
+            
+        else:
+            iteration=int(c[1])
+            if iteration<=max_iteration-1:
+
+                columns_names+=[(c[0], f'{iteration+1} - {iteration}', c[2])]
+                columns_values+=[(feature_df[(c[0], str(iteration+1), c[2])]- feature_df[c])]
     differenced_features=pd.concat(columns_values,axis=1)
     differenced_features.columns=columns_names
-    differenced_features['y']=feature_df['y'].values
+    if 'y' in feature_df.columns:
+        differenced_features['y']=feature_df['y'].values
     #differenced_features['seed']=feature_df.reset_index()['seed'].values
     return differenced_features
 

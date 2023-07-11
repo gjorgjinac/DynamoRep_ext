@@ -115,9 +115,6 @@ def run(seed, dimension, instance_count=100):
     maximum_generations=50
     population_size = 10*dimension
     sampling = LHS()
-    ga = GA(
-        pop_size=population_size,
-        sampling=sampling)
 
     de = DE(
         pop_size=population_size,seed=seed, sampling=sampling
@@ -125,10 +122,9 @@ def run(seed, dimension, instance_count=100):
 
     n_offsprings = max(population_size*2, 200)
     es = ES( pop_size=population_size, seed=seed, sampling=sampling, n_offsprings=n_offsprings)
-    nm = NelderMead()
-    ps = PatternSearch()
+
     pso = PSO(pop_size=population_size, sampling=sampling,seed=seed)
-    cmaes=CMAES(popsize=population_size,seed=seed, sampling=sampling)
+
     algorithms = {'ES':es,'DE':de,'PSO':pso}
     #algorithms = init_de_configurations(dimension, seed)
     algorithms_to_run = algorithms.items()
