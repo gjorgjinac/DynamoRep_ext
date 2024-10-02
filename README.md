@@ -51,7 +51,6 @@ This concludes the data collection process.
 - algorithm_single_statistic.py - This script performs the algorithm classification task with the DynamoRep features with different feature calculation budgets, using a single descriptive statistic
 
 - algorithm_classification_ela.py -  This script performs the algorithm classification task with the iteration ELA features with different feature calculation budgets
-
 ### Script Parameters
 All 8 scripts receive as input the following parameter (all parameters need to be specified in the following order):
 - $1 - algorithm_name(s) - a single algorithm name (for problem classification) or multiple algorithm names separated by "-", example: "DE" (for problem classification) or "DE-ES-PSO" (for algorithm classification)
@@ -61,9 +60,15 @@ All 8 scripts receive as input the following parameter (all parameters need to b
 - $5 - the problem dimension, example: "5"
 - $6 - normalize_y - whether to use the features calculated on scaled objective function values or not, example: "true"/"false"
 
-### Shell scripts
 
-The shell scripts run_problem_classification_ela.sh, run_problem_classification_single.sh, run_problem_classification.sh, run_algorithm_classification_ela.sh, run_algorithm_classification_single.sh, run_algorithm_classification.sh can be used to run the python scripts with the parameters used in the paper.
+### Algorithm selection 
+- algorithm_selection.py - This script performs the algorithm selection task with the DynamoRep features with different feature calculation budgets using all features
+- algorithm_selection_iteration_ela.py - This script performs the algorithm selection task with the iteration ELA features with different feature calculation budgets using all features
+- algorithm_selection_ela_static.py - This script performs the algorithm selection task with the static ELA features with different feature calculation budgets using all features
+
+
+### Shell scripts
+The shell scripts run_problem_classification_ela.sh, run_problem_classification_single.sh, run_problem_classification.sh, run_algorithm_classification_ela.sh, run_algorithm_classification_single.sh, run_algorithm_classification.sh, run_as.sh, run_as_static_ela.sh can be used to run the python scripts with the parameters used in the paper.
 
 
 
